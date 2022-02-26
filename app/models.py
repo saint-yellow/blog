@@ -83,4 +83,4 @@ class Comment(db.Model):
             bleach.clean(markdown(value, output_format='html'), tags=allowed_tags, strip=True))
 
 
-db.event.listen(Article.body, 'set', Comment.on_change_body)
+db.event.listen(Comment.body, 'set', Comment.on_change_body)
