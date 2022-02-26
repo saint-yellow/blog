@@ -45,6 +45,11 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+article_tags = db.Table('article_tags',
+    db.Column('article_id', db.Integer, db.ForeignKey('articles.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id')),
+)
+
 class Article(db.Model):
     __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +58,7 @@ class Article(db.Model):
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
     comments = db.relationship('Comment', backref='article', lazy='dynamic')
+    tags = db.relationship('Tag', secondary=article_tags, backref=db.backref('articles', lazy='dynamic'), lazy='dynamic')
 
     @staticmethod
     def on_change_body(target, value, old_value, initiator):
@@ -61,6 +67,12 @@ class Article(db.Model):
 
 
 db.event.listen(Article.body, 'set', Article.on_change_body)
+
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=True)
 
 
 class Comment(db.Model):

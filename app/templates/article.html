@@ -14,6 +14,13 @@
         {% endif %}
     </div>
     <div>
+        {% for tag in article.tags.all() %}
+            <span class="label label-primary">
+                {{ tag.name }}
+            </span>
+        {% endfor %}
+    </div>
+    <div>
         {% include "_comments.html" %}
     </div>
 </div>

@@ -6,12 +6,12 @@
         </div>
         <div class="article-title">{{ article.title }}</div>
         <div class="article-body">
-        {% if article.body_html %}
-            {{ article.body_html | safe }}
-        {% else %}
-            {{ article.body }}
-        {% endif %}
-    </div>
+            {% if article.body_html %}
+                {{ article.body_html | safe }}
+            {% else %}
+                {{ article.body }}
+            {% endif %}
+        </div>
         <div class="article-footer">
             <a href="{{ url_for('main.article', id=article.id) }}">
                 <span class="label label-default">Read More</span>
