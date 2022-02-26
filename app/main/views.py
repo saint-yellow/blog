@@ -20,7 +20,7 @@ def article(id: int):
     article = Article.query.get_or_404(id)
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(body=form.body.data, article=article)
+        comment = Comment(nickname=form.nickname.data, body=form.body.data, article=article)
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.')
