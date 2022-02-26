@@ -1,0 +1,27 @@
+<div class="articles">
+    {% for article in articles %}
+    <li class="article">
+        <div class="article-date">
+            {{ moment(article.timestamp).fromNow() }}
+        </div>
+        <div class="article-title">{{ article.title }}</div>
+        <div class="article-body">
+        {% if article.body_html %}
+            {{ article.body_html | safe }}
+        {% else %}
+            {{ article.body }}
+        {% endif %}
+    </div>
+        <div class="article-footer">
+            <a href="{{ url_for('main.article', id=article.id) }}">
+                <span class="label label-default">Read More</span>
+            </a>
+            <a href="{{ url_for('main.article', id=article.id) }}#comments">
+                <span class="label label-primary">
+                    {{ article.comments.count() }} Comment(s)
+                </span>
+            </a>
+        </div>
+    </li>
+    {% endfor %}
+</div>

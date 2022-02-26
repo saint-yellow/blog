@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="article">
+    <div class="article-date">
+        {{ moment(article.timestamp).fromNow() }}
+    </div>
+    <div class="article-title">{{ article.title }}</div>
+    <div class="article-body">
+        {% if article.body_html %}
+            {{ article.body_html | safe }}
+        {% else %}
+            {{ article.body }}
+        {% endif %}
+    </div>
+    <div>
+        {% include "_comments.html" %}
+    </div>
+</div>
+{% endblock %}
